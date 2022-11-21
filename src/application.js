@@ -669,10 +669,14 @@ class XtkSchemaNode {
             this._localizationId = this._localizationId + "__e____" + this.name;
           }
         }
-        this.labelLocalizationId = this._localizationId + "__@label";
-        this.descriptionLocalizationId = this._localizationId + "__@desc";
-        if (!this.parent) {
-            this.labelSingularLocalizationId = this._localizationId + "__@labelSingular";
+        if (this.label) {
+          this.labelLocalizationId = this._localizationId + "__@label";
+        }
+        if (this.description) {
+          this.descriptionLocalizationId = this._localizationId + "__@desc";
+        }
+        if (!this.parent && this.labelSingular) {
+          this.labelSingularLocalizationId = this._localizationId + "__@labelSingular";
         }
     }
 
@@ -1219,7 +1223,13 @@ class CurrentLogin {
          * @type {string}
          */
         this.timezone = EntityAccessor.getAttributeAsString(userInfo, "timezone");
-        
+       
+        /**
+         * The instance locale
+         * @type { string }
+         */
+        this.instanceLocale = EntityAccessor.getAttributeAsString(userInfo, "instanceLocale");
+
         /**
          * The llist of operator rights
          * @type {string[]}
